@@ -1,0 +1,13 @@
+{
+  "name": "Zenone",
+  "main": "http://localhost:8080",
+  "window": {
+    "frame": false,
+    "toolbar": false,
+    "height": 800,
+    "width": 1280,
+    "resizable": true,
+    "position": "mouse"
+  },
+  "node-remote": "http://localhost"
+}
