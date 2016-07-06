@@ -1,12 +1,6 @@
 <template lang='pug'>
   #app
-    ui-toolbar(brand='Zenone',show-brand,flat)
-      a(href='#') ciao 
-      span  / 
-      a(href='#') prova
-      .actions(slot='actions')
-        ui-icon-button(icon='settings',type='flat')
-        ui-textbox(placeholder='search',icon-right)
+    headerbar
     .container
       navbar
       explorer
@@ -16,9 +10,10 @@
 // var win = gui.Window.get()
 import Navbar from './components/Navbar'
 import Explorer from './components/Explorer'
+import Headerbar from './components/Headerbar'
 
 export default {
-  components: { Navbar, Explorer }
+  components: { Navbar, Explorer, Headerbar }
 }
 </script>
 
@@ -45,7 +40,9 @@ body {
 }
 
 #app {
-  height: 100%;
+  position: absolute;
+  bottom: 0px;
+  top: 0px;
 }
 
 a {
