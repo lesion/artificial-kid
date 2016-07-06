@@ -1,12 +1,57 @@
 <template lang='pug'>
-  a.file(draggable="true",@click='click', :title='file.type')
+  a.file( :class='{ dropzone: file.isdir }',draggable="true",@click='click', :title='file.type')
+    i.ui-icon.material-icons.ui-menu-item-icon {{icon}}
     span {{file.name}}
 </template>
 <script>
 // var gui = require('nw.gui')
 var path = require('path')
 import {setCwd} from '../vuex/actions'
+
+document.addEventListener('dragstart', event => {
+  // store a ref. on the dragged elem
+  // dragged = event.target
+  // make it half transparent
+  event.target.style.opacity = 0.5
+}, false)
+
+document.addEventListener('dragend', event => {
+  // reset the transparency
+  event.target.style.opacity = ''
+}, false)
+
+/* events fired on the drop targets */
+document.addEventListener('dragover', event => {
+  // prevent default to allow drop
+  event.preventDefault()
+}, false)
+
+document.addEventListener('dragenter', event => {
+    // highlight potential drop target when the draggable element enters it
+  console.error('dentro qui !', event.target.classList)
+  if (event.target.classList.contains('dropzone')) {
+    event.target.style.background = 'purple'
+  }
+}, false)
+
+document.addEventListener('dragleave', event => {
+  // reset background of potential drop target when the draggable element leaves it
+  if (event.target.classList.contains('dropzone')) {
+    event.target.style.background = ''
+  }
+}, false)
+
 export default {
+  computed: {
+    icon () {
+      if (this.file.isdir) return 'folder'
+      let icons = {
+        'application/pdf': 'picture_as_pdf',
+        'image/png': 'photo'
+      }
+      return icons[this.file.type]
+    }
+  },
   vuex: {
     actions: {setCwd},
     getters: {
@@ -15,6 +60,15 @@ export default {
   },
   props: ['file'],
   methods: {
+    drop (e) {
+      e.preventDefault()
+      console.error('dropped !')
+    },
+    allowDrop (e) {
+      console.error('dentro lalow Drop')
+      if (!this.file.isdir) return
+      e.preventDefault()
+    },
     stopPropagation (e) {
       e.stopPropagation()
     },
