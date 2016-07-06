@@ -1,10 +1,9 @@
 <template lang='pug'>
-  .file(draggable="true",@mousedown='stopPropagation',@click='click')
-    span {{file}}
+  a.file(draggable="true",@click='click', :title='file.type')
+    span {{file.name}}
 </template>
 <script>
 // var gui = require('nw.gui')
-var fs = require('fs')
 var path = require('path')
 import {setCwd} from '../vuex/actions'
 export default {
@@ -22,20 +21,11 @@ export default {
     click (e) {
       e.preventDefault()
       e.stopPropagation()
-      console.error('dentro il click ', this.file, this.cwd)
-      console.error(`devo controllare se ${this.cwd}/${this.file} e una dir o meno`)
-      fs.stat(path.join(this.cwd, this.file), (err, stats) => {
-        if (err) {
-          console.error('QUI DEVO NOTIFY ! ', err)
-          return
-        }
+      // if(e.ctrlKey)
 
-        if (stats.isDirectory()) {
-          console.error('una directory ?!')
-          console.error(this)
-          this.setCwd(path.join(this.cwd, this.file))
-        }
-      })
+      if (this.file.isdir) {
+        this.setCwd(path.join(this.cwd, this.file.name))
+      }
       // console.error(gui.Shell)
       // console.error('aprp')
       // gui.Shell.openItem(this.$parent.cwd + '/' + this.file)

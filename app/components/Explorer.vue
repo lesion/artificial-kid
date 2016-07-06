@@ -1,14 +1,12 @@
 <template lang='pug'>
-  #explorer(@mousedown='startSelecting',
-    @mouseup='endSelecting',
-    @mousemove='selecting && moveSelecting(this)')
+  #explorer
     #selector(v-show='selecting')
     file(v-for='file in files', track-by='$index', :file='file')
 </template>
 
 <script>
-import shell from 'shelljs'
 import File from './File'
+import fs from '../fs'
 export default {
   vuex: {
     getters: {
@@ -16,23 +14,15 @@ export default {
     }
   },
   components: { File },
-  methods: {
-    startSelecting () {
-      this.selecting = true
-    },
-    endSelecting () {
-      this.selecting = false
-      console.error('pigiato su explorer !')
-    },
-    moveSelecting () {
-      // if (!this.selecting) return
-      console.error(this)
-    }
-  },
   watch: {
     cwd (val) {
-      console.error('msg', val)
-      this.files = shell.ls(this.cwd)
+      console.error('cambia il cwd !')
+      fs.ls(this.cwd)
+        .then(files => {
+          console.error(files)
+          this.files = files
+        }) // scroll to top ...
+        .catch(console.error)
     }
   },
   data () {
@@ -43,7 +33,11 @@ export default {
   },
   ready (a) {
     console.error('dentro activate !')
-    this.files = shell.ls(this.cwd)
+    fs.ls(this.cwd)
+      .then(files => {
+        this.files = files
+      }) // scroll to top ...
+      .catch(console.error)
   }
 }
 </script>

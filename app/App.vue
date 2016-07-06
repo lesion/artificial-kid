@@ -41,8 +41,11 @@ body {
 
 #app {
   position: absolute;
-  bottom: 0px;
-  top: 0px;
+  width: 100%;
+  height: 100%;
+  right: 0px;
+  left: 0px;
+  
 }
 
 a {
@@ -53,7 +56,6 @@ a {
 .container {
   height: 100%;
   display: flex;
-  justify-content: space-between;
 }
 
 </style>

@@ -9,7 +9,6 @@ const state = {
 
 const mutations = {
   SET_CWD (state, path) {
-    console.error('DENTRO MUTATIONS !', path)
     state.cwd = path
   }
 }
