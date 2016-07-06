@@ -1,5 +1,5 @@
 {
-  "name": "zenone",
+  "name": "artificial-kid",
   "version": "1.0.0",
   "description": "A Cordova Vue.js project",
   "author": "lesion <lesion@autistici.org>",
@@ -15,6 +15,7 @@
     "babel-runtime": "^6.0.0",
     "shelljs": "^0.6.0",
     "vue": "^1.0.21",
+    "vuex": "^1.0.0-rc.2",
     "webpack-material-design-icons": "0.0.2"
   },
   "devDependencies": {
@@ -60,6 +61,8 @@
     "shelljs": "^0.6.0",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.1.1",
     "url-loader": "^0.5.7",
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.0.0",
